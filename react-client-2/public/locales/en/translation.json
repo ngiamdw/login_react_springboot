@@ -1,0 +1,15 @@
+{
+    "Hi": "Hi",
+    "Username": "Username",
+    "Role": "Role",
+    "Logout": "Logout",
+    "ManagerPage": "ManagerPage",
+    "ManagerPageText": "Welcome to the manager dashboard",
+    "invalidCredentials": "Invalid userid or password",
+    "loginFailedDueToServerErr": "Login failed due to server error",
+    "logInError": "Error logging in",
+    "LogIn": "Login",
+    "Language": "Choose Language",
+    "English": "English",
+    "Mandarin": "Mandarin"
+  }

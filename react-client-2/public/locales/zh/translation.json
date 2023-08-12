@@ -1,0 +1,15 @@
+{
+    "Hi": "欢迎",
+    "Username": "用户名",
+    "Role": "角色",
+    "Logout": "退出",
+    "ManagerPage": "管理页面",
+    "ManagerPageText": "欢迎来到管理仪表板",
+    "invalidCredentials": "无效的用户ID或密码",
+    "loginFailedDueToServerErr": "由于服务器错误，登录失败",
+    "logInError": "登录错误",
+    "LogIn": "登录",
+    "Language": "选择语言",
+    "English": "英语",
+    "Mandarin": "普通话"
+}
