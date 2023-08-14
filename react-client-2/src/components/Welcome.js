@@ -5,15 +5,15 @@ import { useTranslation } from 'react-i18next';
 
 const Welcome = () => {
 
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!token) {
       navigate('/Login');
     }
-  }, [isAuthenticated, navigate]);
+  }, [token, navigate]);
 
   return (
     <div>

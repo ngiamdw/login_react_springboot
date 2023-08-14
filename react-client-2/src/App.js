@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';  // Added useContext
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate } from 'react-router-dom';  // Added Navigate
 import Login from './components/Login.js';
 import Welcome from './components/Welcome'; 
 import ManagerPage from './components/ManagerPage';
 import LogoutUser from './components/LogoutUser';
 import AuthProvider from './components/AuthProvider';
+import AuthContext from './components/AuthContext';  
 
 import i18n from "i18next";
 import { initReactI18next, I18nextProvider } from "react-i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
-
 i18n
   .use(Backend)
   .use(LanguageDetector)
@@ -27,31 +27,25 @@ i18n
     }
   });
 
+// App.js
 function App() {
+  const { token } = useContext(AuthContext);
+
   return (
     <I18nextProvider i18n={i18n}>
       <Router>
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<RedirectToLogin />} /> {/* Redirect root to /login */}
+            <Route path="/" element={<Navigate to={!token ? "/login" : "/welcome"} replace />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<LogoutUser />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/managerPage" element={<ManagerPage />} />
-            <Route path="/logout" element={<LogoutUser />} />
           </Routes>
         </AuthProvider>
       </Router>
     </I18nextProvider>
   );
 }
-
-function RedirectToLogin(){
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate('/login');
-  }, [navigate]);
-  return null;
-}
-
 
 export default App;

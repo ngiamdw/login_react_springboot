@@ -7,14 +7,27 @@ const apiService = axios.create({
   withCredentials: true,
 });
 
-export const loginUser = (user) => {
-  return apiService.post('/login', user);
+export const loginUser = async (user) => {
+    const response = await apiService.post('/login', user);
+    if (response && response.data && response.data.token) {
+        apiService.defaults.headers['Authorization'] = 'Bearer ' + response.data.token;
+    }
+    return response;
 };
 
-export const managerPage = (userId) => {
-  return apiService.get(`/managerPage?userId=${userId}`);
+
+export const VerifyManagerPageAccess = () => {
+  return apiService.get('/managerpage', {
+    headers: {
+      'Authorization': `Bearer ${apiService.defaults.headers['Authorization']}`
+    }
+  });
 };
 
-export const logoutUser = (userId) => {
-  return apiService.get(`/logout?userId=${userId}`);
+export const logoutUser = () => {
+  return apiService.get('/logout', {
+    headers: {
+      'Authorization': `Bearer ${apiService.defaults.headers['Authorization']}`
+    }
+  });
 };

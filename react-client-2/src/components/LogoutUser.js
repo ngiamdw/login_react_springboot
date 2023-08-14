@@ -5,24 +5,36 @@ import AuthContext from './AuthContext.js';
 
 const LogoutUser = () => {
   const navigate = useNavigate();
-  const {  updateAuthOnLogout, user } = useContext(AuthContext);
+  const {  rmTokenOnLogout, user, token } = useContext(AuthContext);
 
   useEffect(() => {
     const handleLogout = async () => {
+
+      if (!token) {
+        navigate('/Login');
+        return;
+      }
+
       try {
         const response = await logoutUser(user.userId);
         if (response.status === 200) {
-          updateAuthOnLogout();
+          rmTokenOnLogout();
           alert('Logged out successfully');
-          navigate('/login'); // Redirect to login after logout
+          // Redirect to login after logout success
+          navigate('/login'); 
+        }else if(response.status === 401){
+          alert('Token is invalid/missing, user cannot be authenticated');
+        }
+        else if(response.status === 403){
+          alert('Token is valid but blacklisted, cannot logout');
         }
       } catch (error) {
-        console.error('Error during logout:', error);
+        alert('Server/Internet Connection Error');
       }
     };
 
     handleLogout();
-  }, [navigate,updateAuthOnLogout, user]);
+  }, [navigate,rmTokenOnLogout, user,token ]);
 
   return null; // This component doesn't render anything
 };

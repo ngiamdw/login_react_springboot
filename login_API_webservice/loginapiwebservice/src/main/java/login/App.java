@@ -3,6 +3,7 @@ package login;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import login.model.User;
@@ -10,7 +11,8 @@ import login.repository.UserRepository;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-@SpringBootApplication
+//exclude spring security
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
@@ -19,7 +21,6 @@ public class App {
     @Bean
     public CommandLineRunner commandLineRun(UserRepository uRepo) {
         return args -> {
-
             User user1 = new User();
             user1.setName("John");
             user1.setUsername("j123");
